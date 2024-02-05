@@ -51,7 +51,6 @@ elif lm_type == "incremental" or lm_type == "causal":
 if "/" in model_name:
     model_name = model_name.replace("/", "_")
 
-stimuli_loader = DataLoader(dataset, batch_size = batch_size, num_workers=0)
 
 # convert the internal model to use MC Dropout
 pop.DropoutUtils.convert_dropouts(transformer.model)
@@ -61,26 +60,27 @@ results = []
 control_results = []
 conclusion_only = []
 
-
 column_names += ["dv_prob"]
 with open(exp_path + f"/results_{model_name}.csv", "w", newline='') as f:
-    writer = csv.writer(f)
+    writer = csv.writer(f, delimiter='|')
     writer.writerow(column_names)
 
 # create a lambda function alias for the method that performs classifications
 call_me = lambda p1, q1: transformer.conditional_score(p1, q1, reduction=lambda x: (x.sum(0).item(), x.mean(0).item(), x.tolist()))
 
+stimuli_loader = DataLoader(dataset, batch_size = batch_size, num_workers=0)
 if num_batches < 0:
     num_batches = len(stimuli_loader)
 for batch in tqdm(stimuli_loader):
-    out_dataset = [[], [], [], []]
+    out_dataset = [[] for _ in range(len(batch))]
     priming_scores = []
-    for i in range(4):
+    for i in range(len(batch)):
         out_dataset[i].extend(batch[i])
-        
+
     results = {'dv_prob': []}
     p_list = batch[0]
     dv_list = batch[5]
+
     population = pop.generate_dropout_population(transformer.model, lambda: call_me(p_list, dv_list), committee_size=committee_size)
     outs = [item for item in pop.call_function_with_population(transformer.model, population, lambda: call_me(p_list, dv_list))]
 
@@ -92,7 +92,8 @@ for batch in tqdm(stimuli_loader):
 
     out_dataset.append(results['dv_prob'])
     with open(exp_path + f"/results_{model_name}.csv", "a", newline='') as f:
-        writer = csv.writer(f)
+        writer = csv.writer(f, delimiter='|')
         writer.writerows(list(zip(*out_dataset)))
+
 
 print(exp_path + f"/results_{model_name}.csv")

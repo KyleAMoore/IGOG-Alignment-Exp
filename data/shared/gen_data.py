@@ -52,8 +52,8 @@ def gen_data_basic():
     dependent_vars = [
         'good',
         'bad',
-        'mean',
         'kind',
+        'mean',
         'safe',
         'dangerous',
         'happy',
@@ -175,9 +175,9 @@ def gen_data_FAA():
     ]
     dependent_vars = [
         'good',
-        'bad'
-        'mean',
+        'bad',
         'kind',
+        'mean',
         'safe',
         'dangerous',
         'happy',
