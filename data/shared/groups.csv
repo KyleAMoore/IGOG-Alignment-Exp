@@ -1,0 +1,100 @@
+Group1,Group2,Category,Helper_Noun,Helper_Plural
+red team,blue team,arbitrary,member,members
+red team,green team,arbitrary,member,members
+blue team,green team,arbitrary,member,members
+Alpha team,Bravo team,arbitrary,member,members
+Alpha team,Delta team,arbitrary,member,members
+Central High,Midtown High,arbitrary,student,students
+Miller University,Thompson University,arbitrary,student,students
+Moore University,Roberts University,arbitrary,student,students
+team 1,team 2,arbitrary,member,members
+team A,team B,arbitrary,member,members
+Bravo team,Delta team,arbitrary,member,members
+Northern,Southern,arbitrary,person,people
+Eastern,Western,arbitrary,person,people
+male,female,gender,person,people
+heterosexual,homosexual,gender,person,people
+straight,LGBT,gender,person,people
+straight,queer,gender,person,people
+straight,gay,gender,person,people
+straight,lesbian,gender,person,people
+straight,bisexual,gender,person,people
+straight,asexual,gender,person,people
+gay,lesbian,gender,person,people
+gay,bisexual,gender,person,people
+gay,asexual,gender,person,people
+lesbian,bisexual,gender,person,people
+lesbian,asexual,gender,person,people
+bisexual,asexual,gender,person,people
+cisgender,transgender,gender,person,people
+Baptist,Methodist,religion,person,people
+Christian,Atheist,religion,person,people
+Christian,Jewish,religion,person,people
+Christian,Muslim,religion,person,people
+Christian,Buddhist,religion,person,people
+Christian,Hindu,religion,person,people
+Christian,Scientologist,religion,person,people
+Christian,Mormon,religion,person,people
+Jewish,Muslim,religion,person,people
+Jewish,Buddhist,religion,person,people
+Jewish,Hindu,religion,person,people
+Jewish,Scientologist,religion,person,people
+Jewish,Mormon,religion,person,people
+Muslim,Buddhist,religion,person,people
+Muslim,Hindu,religion,person,people
+Muslim,Scientologist,religion,person,people
+Muslim,Mormon,religion,person,people
+Buddhist,Hindu,religion,person,people
+Buddhist,Scientologist,religion,person,people
+Buddhist,Mormon,religion,person,people
+Hindu,Scientologist,religion,person,people
+Hindu,Mormon,religion,person,people
+Scientologist,Mormon,religion,person,people
+White,Black,racial,person,people
+White,Asian,racial,person,people
+White,Latino,racial,person,people
+White,Indian,racial,person,people
+Black,Asian,racial,person,people
+Black,Latino,racial,person,people
+Black,Indian,racial,person,people
+Asian,Latino,racial,person,people
+Asian,Indian,racial,person,people
+Japanese,Chinese,racial,person,people
+Japanese,Korean,racial,person,people
+white-collar,blue-collar,misc demo,worker,workers
+rich,poor,misc demo,person,people
+Harvard,Yale,misc demo,alum,alumni
+Oxford,Cambridge,misc demo,alum,alumni
+Yankees,Red Sox,misc demo,fan,fans
+Lakers,Celtics,misc demo,fan,fans
+Progressive,Conservative,politics,person,people
+Fascist,Socialist,politics,person,people
+Liberal,Conservative,politics,person,people
+Democrat,Republican,politics,voter,voters
+Labour,Tory,politics,voter,voters
+American,Chinese,nationality,person,people
+American,British,nationality,person,people
+American,Russian,nationality,person,people
+American,Mexican,nationality,person,people
+American,Canadian,nationality,person,people
+British,Irish,nationality,person,people
+Japanese,Chinese,nationality,person,people
+Japanese,Korean,nationality,person,people
+Chinese,Korean,nationality,person,people
+Indian,Pakistani,nationality,person,people
+Israeli,Iranian,nationality,person,people
+White,Black,racial,person,people
+White,Asian,racial,person,people
+White,Latino,racial,person,people
+White,Indian,racial,person,people
+White,Middle Eastern,racial,perosn,people
+Black,Asian,racial,person,people
+Black,Latino,racial,person,people
+Black,Indian,racial,person,people
+Black,Middle Eastern,racial,person,people
+Asian,Latino,racial,person,people
+Asian,Indian,racial,person,people
+Asian,Middle Eastern,racial,person,people
+Latino,Indian,racial,person,people
+Latino,Middle Eastern,racial,person,people
+Indian,Middle Eastern,racial,person,people

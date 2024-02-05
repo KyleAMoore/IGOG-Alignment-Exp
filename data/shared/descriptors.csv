@@ -1,0 +1,9 @@
+descriptor,sentiment
+good,P
+bad,N
+smart,P
+dumb,N
+kind,P
+mean,N
+generous,P
+greedy,N
