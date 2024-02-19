@@ -1,3 +1,9 @@
+'''
+Also implemented with insubstantial changes in the below notebook to take advantage of Google Colab compute resources. Will add notebook directly to repo at a later date
+
+https://colab.research.google.com/drive/1h9sZ8DdAMU_MufHsb2D7sNUmelBdX3o7?usp=sharing
+'''
+
 import argparse
 import csv
 import itertools
@@ -78,8 +84,8 @@ for batch in tqdm(stimuli_loader):
         out_dataset[i].extend(batch[i])
 
     results = {'dv_prob': []}
-    p_list = batch[0]
-    dv_list = batch[5]
+    p_list = list(batch[0])
+    dv_list = list(batch[5])
 
     population = pop.generate_dropout_population(transformer.model, lambda: call_me(p_list, dv_list), committee_size=committee_size)
     outs = [item for item in pop.call_function_with_population(transformer.model, population, lambda: call_me(p_list, dv_list))]
