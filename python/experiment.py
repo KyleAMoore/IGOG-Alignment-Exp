@@ -11,6 +11,7 @@ from tqdm import tqdm
 
 import torch
 from torch.utils.data import DataLoader
+from transformers import AutoModelForMaskedLM, AutoModelForCausalLM
 
 from minicons import scorer
 import PopulationLM as pop
@@ -18,8 +19,9 @@ import os
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--exp_path", type = str)
-parser.add_argument("--model", default = 'bert-base-uncased', type = str)
-parser.add_argument("--model_loc", default = None, type = str)
+parser.add_argument("--base_model", default = 'bert-base-uncased', type = str)
+parser.add_argument("--ow_model_loc", default = None, type = str)
+parser.add_argument("--res_loc", default = None, type = str)
 parser.add_argument("--batch_size", default = 10, type = int)
 parser.add_argument("--num_batches", default = -1, type = int)
 parser.add_argument("--committee_size", default = 50, type = int)
@@ -28,8 +30,9 @@ parser.add_argument("--lmtype", default = 'masked', choices = ['mlm', 'masked', 
 args = parser.parse_args()
 
 exp_path = args.exp_path
-model_name = args.model
-model_loc = args.model_loc
+base_model_name = args.base_model
+ow_model_loc = args.ow_model_loc
+results_loc = args.res_loc
 batch_size = args.batch_size
 num_batches = args.num_batches
 committee_size = args.committee_size
@@ -44,19 +47,31 @@ with open(exp_path + '/prompts.csv', "r") as f:
     for row in reader:
         dataset.append(list(row.values()))
 
-if model_loc is not None:
-    model_id = os.path.abspath(model_loc)
-else:
-    model_id = model_name
-
+# Load the model
 if lm_type == "masked" or lm_type == "mlm":
-    transformer = scorer.MaskedLMScorer(model_id, device)
+    transformer = scorer.MaskedLMScorer(base_model_name, device)
 elif lm_type == "incremental" or lm_type == "causal":
-    transformer = scorer.IncrementalLMScorer(model_id, device)
+    transformer = scorer.IncrementalLMScorer(base_model_name, device)
+
+#Overwrite local model with base model (handles local loading limitation in minicons)
+if ow_model_loc is not None:
+    model_name = os.path.basename(os.path.normpath(ow_model_loc))
+    if lm_type in ['mlm', 'masked']:
+        overwrite_model = AutoModelForMaskedLM.from_pretrained(ow_model_loc, local_files_only=True)
+    else:
+        overwrite_model = AutoModelForCausalLM.from_pretrained(ow_model_loc, local_files_only=True)
+    overwrite_model.to(device)
+    transformer.model = overwrite_model
+else:
+    model_name = base_model_name
 
 if "/" in model_name:
     model_name = model_name.replace("/", "_")
 
+if results_loc is not None:
+    results_loc = exp_path + '/' + results_loc
+else:
+    results_loc = exp_path + f"/results_{model_name}.csv"
 
 # convert the internal model to use MC Dropout
 pop.DropoutUtils.convert_dropouts(transformer.model)
@@ -67,7 +82,7 @@ control_results = []
 conclusion_only = []
 
 column_names += ["dv_prob"]
-with open(exp_path + f"/results_{model_name}.csv", "w", newline='') as f:
+with open(results_loc, "w", newline='') as f:
     writer = csv.writer(f, delimiter='|')
     writer.writerow(column_names)
 
@@ -79,7 +94,7 @@ if num_batches < 0:
     num_batches = len(stimuli_loader)
 for batch in tqdm(stimuli_loader):
     out_dataset = [[] for _ in range(len(batch))]
-    priming_scores = []
+    dv_scores = []
     for i in range(len(batch)):
         out_dataset[i].extend(batch[i])
 
@@ -92,14 +107,13 @@ for batch in tqdm(stimuli_loader):
 
     transposed_outs = [[row[i] for row in outs] for i in range(len(outs[0]))]
 
-    priming_scores = [score for score in transposed_outs]
+    dv_scores = [score for score in transposed_outs]
 
-    results['dv_prob'].extend(priming_scores)
+    results['dv_prob'].extend(dv_scores)
 
     out_dataset.append(results['dv_prob'])
-    with open(exp_path + f"/results_{model_name}.csv", "a", newline='') as f:
+    with open(results_loc, "a", newline='') as f:
         writer = csv.writer(f, delimiter='|')
         writer.writerows(list(zip(*out_dataset)))
 
-
-print(exp_path + f"/results_{model_name}.csv")
+print('Results saved to: ', results_loc)
