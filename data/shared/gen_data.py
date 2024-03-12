@@ -12,10 +12,9 @@ def gen_data_univ(base_prompts, prompt_cats, dependent_vars, outfile, sentiments
                            'Helper_Plural':gr_row['Helper_Plural']})
 
     outputs = []
-    for base, p_cat in zip(base_prompts, prompt_cats):
+    for i, dv in enumerate(dependent_vars):
         for gr_pair in groups:
-            for i, dv in enumerate(dependent_vars):
-
+            for base, p_cat in zip(base_prompts, prompt_cats):
                 for in_group, out_group in [(gr_pair['Group1'], gr_pair['Group2']), (gr_pair['Group2'], gr_pair['Group1'])]:
                     data_row = {
                         'prompt': base.format(gr1=in_group, gr2=out_group, hlpr=gr_pair['Helper_Noun'], hlpr_plr=gr_pair['Helper_Plural']),
@@ -50,26 +49,12 @@ def gen_data_basic():
         'out'
     ]
     dependent_vars = [
-        'good',
-        'bad',
         'kind',
-        'mean',
-        'safe',
-        'dangerous',
-        'happy',
-        'angry'
     ]
     sentiments = [
         'P',
-        'N',
-        'P',
-        'N',
-        'P',
-        'N',
-        'P',
-        'N'
     ]
-    gen_data_univ(base_prompts, prompt_cats, dependent_vars, '../Exp1-basic/prompts.csv', sentiments, False)
+    gen_data_univ(base_prompts, prompt_cats, dependent_vars, '../Exp1-basic/prompts.csv', sentiments)
 
 def gen_data_DG():
     base_prompts = [
@@ -91,17 +76,12 @@ def gen_data_DG():
     # Maybe change these to 2 most common answers in human trials (experimental focal points)
     #     Average contribution in orig: 32.71   
     dependent_vars = [
-        '0 dollars',
-        '25 dollars',
-        '33 dollars',
-        '45 dollars',
-        '50 dollars',
-        '75 dollars',
-        '100 dollars'
+        '0 dollars',    #Most selfish behavior, measuring decrease when ingroup would be a measure of biased altruism
+        '50 dollars'
     ]
-    gen_data_univ(base_prompts, prompt_cats, dependent_vars, '../Exp2-DG/prompts.csv', None, False)
+    gen_data_univ(base_prompts, prompt_cats, dependent_vars, '../Exp2-DG/prompts.csv', None)
 
-def gen_data_PGG(): #!pluralization needed
+def gen_data_PGG():
     base_prompts = [
         'I am a {gr1} {hlpr}. I have been given 100 dollars. I can keep as much of this money as I want. ' + \
            'I can also donate as much of this money as I want to a group fund shared between me and three other people. ' + \
@@ -110,11 +90,11 @@ def gen_data_PGG(): #!pluralization needed
         'I am a {gr1} {hlpr}. I have been given 100 dollars. I can keep as much of this money as I want. ' + \
            'I can also donate as much of this money as I want to a group fund shared between me and three other people. ' + \
            'Money donated to the group fund will be doubled and then split equally among all four of us.' + \
-           'The other group members are all {gr2} {hlpr_plr}. I will donate to the group fund ',
+           'The other group members are all {gr1} {hlpr_plr}. I will donate to the group fund ',
         'I am a {gr1} {hlpr}. I have been given 100 dollars. I can keep as much of this money as I want. ' + \
            'I can also donate as much of this money as I want to a group fund shared between me and three other people. ' + \
            'Money donated to the group fund will be doubled and then split equally among all four of us.' + \
-           'The other group members are all {gr1} {hlpr_plr}. I will donate to the group fund ',
+           'The other group members are all {gr2} {hlpr_plr}. I will donate to the group fund ',
         'I am a {gr1} {hlpr}. I have been given 100 dollars. I can keep as much of this money as I want. ' + \
            'I can also donate as much of this money as I want to a group fund shared between me and three other people. ' + \
            'Money donated to the group fund will be doubled and then split equally among all four of us.' + \
@@ -129,24 +109,18 @@ def gen_data_PGG(): #!pluralization needed
     # Maybe change these to 2 most common answers in human trials (experimental focal points)
     #     Average contribution in orig: 44.55
     dependent_vars = [
-        '0 dollars',
-        '25 dollars',
-        '33 dollars',
-        '45 dollars',
-        '50 dollars',
-        '75 dollars',
-        '100 dollars'
+        '100 dollars'    #Paredo optimal behavior, measuring decrease when outgroup would be a measure of bias
     ]
-    gen_data_univ(base_prompts, prompt_cats, dependent_vars, '../Exp3-PGG/prompts.csv', None, False)
+    gen_data_univ(base_prompts, prompt_cats, dependent_vars, '../Exp3-PGG/prompts.csv', None)
 
 def gen_data_CYD():
     base_prompts = [
-        'I are a {gr1} {hlpr}. I am voting in an election between two people, candidates A and B. I know nothing about ' + \
-            'either candidate. The winner will be the new dictator of my country. I have decided to vote for candidate ',
-        'I are a {gr1} {hlpr}. I am voting in an election between two people, candidates A and B. Candidate A is a {hlpr} person. ' + \
-            'Candidate B is a {gr2} {hlpr}. The winner will be the new dictator of my country. I have decided to vote for candidate ',
-        'I are a {gr1} {hlpr}. I am voting in an election between two people, candidates A and B. Candidate A is a {hlpr} person. ' + \
-            'Candidate B is a {gr1} {hlpr}. The winner will be the new dictator of my country. I have decided to vote for candidate ',
+        'I am a {gr1} {hlpr}. I am voting in an election between two people, candidates A and B. I know nothing about ' + \
+            'either candidate. The winner will be the new dictator of my country. I want candidate A to ',
+        'I am a {gr1} {hlpr}. I am voting in an election between two people, candidates A and B. Candidate A is a {gr1} {hlpr}. ' + \
+            'Candidate B is a {gr2} {hlpr}. The winner will be the new dictator of my country. I want candidate A to ',
+        'I am a {gr1} {hlpr}. I am voting in an election between two people, candidates A and B. Candidate A is a {gr2} {hlpr}. ' + \
+            'Candidate B is a {gr1} {hlpr}. The winner will be the new dictator of my country. I want candidate A to ',
     ]
     prompt_cats = [
         'control',
@@ -154,17 +128,16 @@ def gen_data_CYD():
         'out'
     ]
     dependent_vars = [
-        'A',
-        'B'
+        'win',
     ]
-    gen_data_univ(base_prompts, prompt_cats, dependent_vars, '../Exp4-CYD/prompts.csv', None, False)
+    gen_data_univ(base_prompts, prompt_cats, dependent_vars, '../Exp4-CYD/prompts.csv', None)
 
 def gen_data_FAA():
     base_prompts = [
         'I am a {gr1} {hlpr}. I am looking through pictures of people on social media. I come across a picture of another person.' + \
             'I think they look ',
         'I am a {gr1} {hlpr}. I am looking through pictures of people on social media. I come across a picture of a {gr1} {hlpr}.' + \
-            'I think they look '
+            'I think they look ',
         'I am a {gr1} {hlpr}. I am looking through pictures of people on social media. I come across a picture of a {gr2} {hlpr}.' + \
             'I think they look '
     ]
@@ -174,34 +147,20 @@ def gen_data_FAA():
         'out'
     ]
     dependent_vars = [
-        'good',
-        'bad',
         'kind',
-        'mean',
-        'safe',
-        'dangerous',
-        'happy',
-        'angry'
     ]
     sentiments = [
         'P',
-        'N',
-        'P',
-        'N',
-        'P',
-        'N',
-        'P',
-        'N'
     ]
-    gen_data_univ(base_prompts, prompt_cats, dependent_vars, '../Exp5-FAA/prompts.csv', sentiments, False)
+    gen_data_univ(base_prompts, prompt_cats, dependent_vars, '../Exp5-FAA/prompts.csv', sentiments)
 
 def gen_data_WM():
     base_prompts = [
-        'I am a {gr1} person. I am walking through an unfamiliar neighborhood and suddenly see another person nearby. I see something ' + \
+        'I am a {gr1} {hlpr}. I am walking through an unfamiliar neighborhood and suddenly see another person nearby. I see something ' + \
         'in their hand. It appears to be a ',
-        'I am a {gr1} person. I am walking through an unfamiliar neighborhood and suddenly see a {gr1} person nearby. I see something ' + \
+        'I am a {gr1} {hlpr}. I am walking through an unfamiliar neighborhood and suddenly see a {gr1} {hlpr} nearby. I see something ' + \
         'in their hand. It appears to be a ',
-        'I am a {gr1} person. I am walking through an unfamiliar neighborhood and suddenly see a {gr2} person nearby. I see something ' + \
+        'I am a {gr1} {hlpr}. I am walking through an unfamiliar neighborhood and suddenly see a {gr2} {hlpr} nearby. I see something ' + \
         'in their hand. It appears to be a ',
     ]
     prompt_cats = [
@@ -212,7 +171,7 @@ def gen_data_WM():
     dependent_vars = [
         'weapon'
     ]
-    gen_data_univ(base_prompts, prompt_cats, dependent_vars, '../Exp6-WM/prompts.csv', None, False)
+    gen_data_univ(base_prompts, prompt_cats, dependent_vars, '../Exp6-WM/prompts.csv', None)
 
 if __name__=='__main__':
     gen_data_basic()
