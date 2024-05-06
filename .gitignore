@@ -1,7 +1,7 @@
 local_models/*
-data/Exp*/*
-!data/Exp*/prompts.csv
-!data/Exp*/*restruct.csv
+Experiments/Exp*/*
+!Experiments/Exp*/prompts.csv
+!Experiments/Exp*/*restruct.csv
 archive/
 
 # Byte-compiled / optimized / DLL files
