@@ -50,17 +50,6 @@ Buddhist,Mormon,religion,person,people
 Hindu,Scientologist,religion,person,people
 Hindu,Mormon,religion,person,people
 Scientologist,Mormon,religion,person,people
-White,Black,racial,person,people
-White,Asian,racial,person,people
-White,Latino,racial,person,people
-White,Indian,racial,person,people
-Black,Asian,racial,person,people
-Black,Latino,racial,person,people
-Black,Indian,racial,person,people
-Asian,Latino,racial,person,people
-Asian,Indian,racial,person,people
-Japanese,Chinese,racial,person,people
-Japanese,Korean,racial,person,people
 white-collar,blue-collar,misc demo,worker,workers
 rich,poor,misc demo,person,people
 Harvard,Yale,misc demo,alum,alumni
@@ -98,3 +87,48 @@ Asian,Middle Eastern,racial,person,people
 Latino,Indian,racial,person,people
 Latino,Middle Eastern,racial,person,people
 Indian,Middle Eastern,racial,person,people
+ovess,bable,mgp,team member,team members
+ovess,diers,mgp,team member,team members
+ovess,galin,mgp,team member,team members
+ovess,tuled,mgp,team member,team members
+ovess,blers,mgp,team member,team members
+ovess,brals,mgp,team member,team members
+ovess,hilim,mgp,team member,team members
+ovess,terce,mgp,team member,team members
+ovess,abing,mgp,team member,team members
+bable,diers,mgp,team member,team members
+bable,galin,mgp,team member,team members
+bable,tuled,mgp,team member,team members
+bable,blers,mgp,team member,team members
+bable,brals,mgp,team member,team members
+bable,hilim,mgp,team member,team members
+bable,terce,mgp,team member,team members
+bable,abing,mgp,team member,team members
+diers,galin,mgp,team member,team members
+diers,tuled,mgp,team member,team members
+diers,blers,mgp,team member,team members
+diers,brals,mgp,team member,team members
+diers,hilim,mgp,team member,team members
+diers,terce,mgp,team member,team members
+diers,abing,mgp,team member,team members
+galin,tuled,mgp,team member,team members
+galin,blers,mgp,team member,team members
+galin,brals,mgp,team member,team members
+galin,hilim,mgp,team member,team members
+galin,terce,mgp,team member,team members
+galin,abing,mgp,team member,team members
+tuled,blers,mgp,team member,team members
+tuled,brals,mgp,team member,team members
+tuled,hilim,mgp,team member,team members
+tuled,terce,mgp,team member,team members
+tuled,abing,mgp,team member,team members
+blers,brals,mgp,team member,team members
+blers,hilim,mgp,team member,team members
+blers,terce,mgp,team member,team members
+blers,abing,mgp,team member,team members
+brals,hilim,mgp,team member,team members
+brals,terce,mgp,team member,team members
+brals,abing,mgp,team member,team members
+hilim,terce,mgp,team member,team members
+hilim,abing,mgp,team member,team members
+terce,abing,mgp,team member,team members
